@@ -1,4 +1,4 @@
-var Range = require('./range');
+var Range = require('./');
 
 console.log('' + new Range(1, 10));
 console.log('' + new Range.inclusive(1, 10));
