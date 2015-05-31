@@ -7,6 +7,10 @@ var Range = require('..');
 expect(Range).to.not.be.null;
 
 describe('the natural-number-range module (as \'Range\')', function() {
+  it('new Range() is an empty list', function() {
+    expect(new Range().range).to.eql([]);
+  });
+
   it('Range.inclusive(1, 10) lists the numbers [1 .. 10]', function() {
     expect(Range.inclusive(1, 10).range.length).to.equal(10);
     expect(Range.inclusive(1, 10).range[0]).to.equal(1);
