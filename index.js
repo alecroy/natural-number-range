@@ -1,36 +1,47 @@
 'use strict';
 
-module.exports = function(start, end, options) {
+function range(start, end, options) {
   var array = [];
+  if (!start) {
+    return array;
+  }
+
+  if (!end && start > 0) {
+    end = start;
+    start = 1;
+  } else if (!end && start < 0) {
+    end = -1;
+  }
+
   options = options || {};
   var step = options.step || 1;
+  var scale = options.scale;
 
-  if (step > 0) {
-    if (start && !end) {
-      end = start;
-      start = 1;
+  if (scale) {
+    if (start < 0 && end > 0) {
+      var negatives = range(start, -1, options);
+      var positives = range(1, end, options);
+      return negatives.concat(positives);
+    } else if (start < 0 && end < 0 && Math.abs(start) > Math.abs(end) ||
+      start > 0 && end < 0 ||
+      start > 0 && end > 0 && start > end) {
+      return range(end, start, { scale: scale }).reverse();
     }
+  } else if (start > end) {
+    return range(end, start, { step: step }).reverse();
+  }
 
-    if (options.scale) { // Logarithmic range (multiplicative)
-      for (; Math.floor(start) <= end; start *= options.scale) {
-        array.push(Math.floor(start));
-      }
-    } else { // Standard range (additive)
-      for (; Math.round(start) <= end; start += step) {
-        array.push(Math.round(start));
-      }
+  if (scale) { // Logarithmic range (multiplicative)
+    for (; Math.floor(Math.abs(start)) <= Math.abs(end); start *= scale) {
+      array.push(Math.floor(start));
     }
-  } else if (step < 0) {
-    if (options.scale) { // Logarithmic range (multiplicative)
-      for (; Math.floor(start) <= end; start /= options.scale) {
-        array.push(Math.floor(start));
-      }
-    } else { // Standard range (additive)
-      for (; Math.round(start) <= end; start -= step) {
-        array.push(Math.round(start));
-      }
+  } else { // Standard range (additive)
+    for (; Math.round(start) <= end; start += step) {
+      array.push(Math.round(start));
     }
   }
 
   return array;
-};
+}
+
+module.exports = range;
