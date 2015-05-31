@@ -1,7 +1,6 @@
-var Range = require('./');
+'use strict';
 
-console.log('' + new Range(1, 10));
-console.log('' + new Range.inclusive(1, 10));
-console.log('' + new Range.exclusive(1, 10));
-console.log('' + new Range.upto(5));
-console.log('' + new Range.below(5));
+var range = require('./');
+
+console.dir(range(1000, 1000000, {scale: Math.sqrt(10)}));
+// [ 1000, 3162, 10000, 31622, 100000, 316227, 1000000 ]

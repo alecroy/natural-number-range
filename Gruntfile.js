@@ -28,11 +28,11 @@ module.exports = function(grunt) {
     },
     simplemocha: {
       all: {
-        src: ['./test/**/*test.js'],
+        src: ['./test/**/*test.js', './test/**/*test.coffee'],
       },
     },
     watch: {
-      files: ['./*.js', './test/**/*test.js'],
+      files: ['./*.js', './test/**/*test.js', './test/**/*test.coffee'],
       tasks: ['lint', 'test'],
     },
   });
