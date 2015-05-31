@@ -6,12 +6,9 @@ function range(start, end, options) {
     return array;
   }
 
-  if (!end && start > 0) {
+  if (!end) {
     end = start;
-    start = 1;
-  } else if (!end && start < 0) {
-    end = start;
-    start = -1;
+    start = (start < 0) ? -1 : 1;
   }
 
   options = options || {};
