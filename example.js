@@ -2,6 +2,12 @@
 
 var range = require('./');
 
+console.dir(range(5));
+// [ 1, 2, 3, 4, 5 ]
+
+console.dir(range(5, 9, {step: 2}));
+// [ 5, 7, 9 ]
+
 console.dir(range(1000, 1000000, {scale: Math.sqrt(10)}));
 // [ 1000, 3162, 10000, 31622, 100000, 316227, 1000000 ]
 
