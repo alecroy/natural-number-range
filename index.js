@@ -10,7 +10,8 @@ function range(start, end, options) {
     end = start;
     start = 1;
   } else if (!end && start < 0) {
-    end = -1;
+    end = start;
+    start = -1;
   }
 
   options = options || {};
@@ -32,8 +33,8 @@ function range(start, end, options) {
   }
 
   if (scale) { // Logarithmic range (multiplicative)
-    for (; Math.floor(Math.abs(start)) <= Math.abs(end); start *= scale) {
-      array.push(Math.floor(start));
+    for (; Math.round(Math.abs(start)) <= Math.abs(end); start *= scale) {
+      array.push(Math.round(start));
     }
   } else { // Standard range (additive)
     for (; Math.round(start) <= end; start += step) {
