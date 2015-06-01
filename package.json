@@ -1,0 +1,36 @@
+{
+  "name": "natural-number-range",
+  "version": "0.0.1",
+  "description": "A small library for generating sequential & logarithmic ranges",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^2.3.0",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt": "^0.4.5",
+    "grunt-simple-mocha": "^0.4.0",
+    "grunt-jscs": "^1.8.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "mongoose": "^4.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alecroy/natural-number-range.git"
+  },
+  "keywords": [
+    "number",
+    "range"
+  ],
+  "author": "Alec Hollingsworth",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/alecroy/natural-number-range/issues"
+  },
+  "homepage": "https://github.com/alecroy/natural-number-range#readme"
+}
