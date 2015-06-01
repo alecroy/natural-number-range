@@ -8,25 +8,25 @@ This is a very small library for generating sequences of natural numbers.  Both 
 var range = require('natural-number-range')
 
 range(5)
-// 1,2,3,4,5
+//  [ 1, 2, 3, 4, 5 ]
 
 range(5, 9, {step: 2})
-// 5,7,9
+//  [ 5, 7, 9 ]
 
 range(1000, 1000000, {scale: Math.sqrt(10)})
-// 1000,3162,10000,31623,100000,316228,1000000
+//  [ 1000, 3162, 10000, 31623, 100000, 316228, 1000000 ]
 
 range(1000, 1, {scale: Math.sqrt(10)})
-// 1000,316,100,32,10,3,1
+//  [ 1000, 316, 100, 32, 10, 3, 1 ]
 
 range(-5, -1, {scale: 2})
-// -4,-2,-1
+//  [ -4, -2, -1 ]
 
 range(-5, 5, {scale: 2})
-// -4,-2,-1,1,2,4
+//  [ -4, -2, -1, 1, 2, 4 ]
 
 range(-10, 100, {scale: Math.sqrt(10)})
-// -10,-3,-1,1,3,10,32,100
+//  [ -10, -3, -1, 1, 3, 10, 32, 100 ]
 ~~~
 
 ## Behavior / Tests
