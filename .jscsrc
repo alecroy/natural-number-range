@@ -1,1 +1,9 @@
-{ "preset": "node-style-guide" }
+{
+  "preset": "airbnb",
+  "disallowMultipleVarDecl": null,
+  "disallowTrailingComma": null,
+  "maximumLineLength": null,
+  "requirePaddingNewLinesAfterBlocks": null,
+  "requirePaddingNewLinesBeforeLineComments": null,
+  "requireTrailingComma": null
+}
