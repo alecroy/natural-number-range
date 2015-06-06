@@ -1,7 +1,7 @@
 {
   "name": "natural-number-range",
-  "version": "0.0.1",
-  "description": "A small library for generating sequential & logarithmic ranges",
+  "version": "0.1.0",
+  "description": "A module for generating integer ranges",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -18,10 +18,12 @@
     "url": "git+https://github.com/alecroy/natural-number-range.git"
   },
   "keywords": [
+    "natural",
     "number",
+    "integer",
     "range"
   ],
-  "author": "Alec Hollingsworth",
+  "author": "Alec Hollingsworth <alec@mailc.net> (http://alecroy.me/)",
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/alecroy/natural-number-range/issues"
