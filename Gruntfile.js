@@ -4,8 +4,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     coffee: {
       index: {
-        options: { bare: true, },
-        files: { 'lib/index.js': 'src/index.coffee' },
+        files: { 'lib/index.js': 'src/index.litcoffee' },
       },
     },
     jshint: {
