@@ -24,11 +24,7 @@
     if (options.scale) {
       return multiplicative(a, z, options.scale);
     } else {
-      if (a > z) {
-        return range(z, a, options).reverse();
-      } else {
-        return additive(a, z, options.step);
-      }
+      return additive(a, z, options.step);
     }
   };
 

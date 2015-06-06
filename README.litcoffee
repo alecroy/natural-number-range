@@ -4,17 +4,21 @@ A module to compute additive & multiplicative sequences of numbers.
 
 #### Some additive sequences
 
-`1, 2, 3, 4, 5`
-`100, 99, 98, 97, 96, 95`
-`-2, -1, 0, -1, 2`
+| Input | Output |
+|:----- |:------ |
+| `range 5` | `1, 2, 3, 4, 5` |
+| `range 100, 95` | `100, 99, 98, 97, 96, 95` |
+| `range -2, 2` | `-2, -1, 0, -1, 2` |
 
 #### Some multiplicative sequences
 
-`1, 10, 100, 1000`
-`16, 8, 4, 2, 1`
-`-25, -5, -1, 1, 5, 25`
+| Input | Output |
+|:----- |:------ |
+| `range 1, 1000, scale: 10` | `1, 10, 100, 1000` |
+| `range 16, 1, scale: 2` | `16, 8, 4, 2, 1` |
+| `range -25, 25, scale: 5` | `-25, -5, -1, 1, 5, 25` |
 
-## Exports
+## The Module
 
 This module exports a single function of 3 arguments, all of which are optional:
 
@@ -41,22 +45,17 @@ Passing in two arguments *a, z* always computes the ascending sequence *a..z*.  
       if isDescending a, z, options
         return range(z, a, options).reverse()
 
-Passing in three arguments provides the most functionality, allowing you to computer multiplicative sequences.
-
-Like additive sequences, multiplicative sequences can ascend across 0, stopping when they scale below ±1.  This is a double-ended sequence, since the negative side scales down from *-a* to *-1*, then the positive side scales up from *+1* to *+z*.
+Passing in three arguments allows you to compute multiplicative sequences.  Like additive sequences, they can ascend across 0, stopping when each side scales below ±1.  These double-ended sequences are formed by combining a descending sequence (*-1* down to *a*) with an ascending sequence (*+1* up to *z*).
 
       if isDoubleEnded a, z, options
         return range(a, -1, options).concat range(1, z, options)
 
-Passing in a scaling factor *X* will always compute a multiplicative sequence, ignoring any step size.
+Passing in a scaling factor *X* will always compute a multiplicative sequence, ignoring any step size.  Otherwise, it computes the additive sequence *a..z*.
 
-      if options.scale
-        multiplicative a, z, options.scale
-      else
-        if a > z then range(z, a, options).reverse()
-        else additive a, z, options.step
+      if options.scale then multiplicative a, z, options.scale
+      else additive a, z, options.step
 
-## Helper functions
+### Helper functions
 
     isDescending = (a, z, options) ->
       if !options.scale
@@ -69,6 +68,8 @@ Passing in a scaling factor *X* will always compute a multiplicative sequence, i
     isDoubleEnded = (a, z, options) ->
       options.scale and a < 0 and z > 0
 
+The 2 functions `additive` and `multiplicative` both generate ascending sequences.  Additive sequences terminate when their values round to an integer above the upper bound.
+
     additive = (lower, upper, step) ->
       array = []
       while Math.round(lower) <= upper
@@ -76,10 +77,16 @@ Passing in a scaling factor *X* will always compute a multiplicative sequence, i
         lower += step
       return array
 
+Multiplicative sequences terminate when their rounded absolute values exceed the absolute value of their upper bound.
+
     multiplicative = (lower, upper, scale) ->
       array = []
       while Math.round(Math.abs(lower)) <= Math.abs(upper)
         array.push Math.round lower
         lower *= scale
       return array
-~~~
+
+## Usage
+
+To build the module: `npm run build`
+To run the tests: `npm run test`
