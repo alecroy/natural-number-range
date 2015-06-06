@@ -9,10 +9,10 @@
         step: 1
       };
     }
-    if (!a) {
+    if (a === void 0) {
       return [];
     }
-    if (!z) {
+    if (z === void 0) {
       ref = [a, a < 0 ? -1 : 1], z = ref[0], a = ref[1];
     }
     if (isDescending(a, z, options)) {

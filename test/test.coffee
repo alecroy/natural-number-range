@@ -18,8 +18,8 @@ describe 'range = require(\'natural-number-range\')', ->
     it 'range(5) = [1, 2, 3, 4, 5]', ->
       expect(range 5).to.eql [1, 2, 3, 4, 5]
 
-    it 'range(7, 9) = [7, 8, 9]', ->
-      expect(range 7, 9).to.eql [7, 8, 9]
+    it 'range(0, 5) = [0, 1, 2, 3, 4, 5]', ->
+      expect(range 0, 5).to.eql [0, 1, 2, 3, 4, 5]
 
     it 'range(1, 10, {step: 2}) = [1, 3, 5, 7, 9]', ->
       expect(range 1, 10, step: 2).to.eql [1, 3, 5, 7, 9]

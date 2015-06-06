@@ -35,11 +35,11 @@ For function calls of zero, one, or two arguments, additive sequences of step si
 
 Passing in no arguments always returns an empty sequence, [].
 
-      if !a then return []
+      if a is undefined then return []
 
 Passing in one argument *a* without *z* computes the sequence *1..a* for positive *a* and *-1..a* for negative *a*.
 
-      if !z then [z, a] = [a, if a < 0 then -1 else 1]
+      if z is undefined then [z, a] = [a, if a < 0 then -1 else 1]
 
 Passing in two arguments *a, z* always computes the ascending sequence *a..z*.  To compute a descending sequnce when *z* < *a*, it computes and reverses the ascending sequence *z..a*.
 
