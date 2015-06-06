@@ -1,8 +1,8 @@
 (function() {
-  var additive, descending_sequence, multiplicative, range;
+  var additive, isDescending, isDoubleEnded, multiplicative, range;
 
   module.exports = range = function(a, z, options) {
-    var minus, plus, ref, ref1;
+    var ref;
     if (options == null) {
       options = {
         step: 1
@@ -14,31 +14,33 @@
     if (!z) {
       ref = [a, a < 0 ? -1 : 1], z = ref[0], a = ref[1];
     }
-    if (descending_sequence(a, z, options)) {
+    if (isDescending(a, z, options)) {
       return range(z, a, options).reverse();
     }
-    if (!options.scale) {
+    if (isDoubleEnded(a, z, options)) {
+      return range(a, -1, options).concat(range(1, z, options));
+    }
+    if (options.scale) {
+      return multiplicative(a, z, options.scale);
+    } else {
       if (a > z) {
         return range(z, a, options).reverse();
       } else {
         return additive(a, z, options.step);
       }
-    } else {
-      if (a < 0 && z > 0) {
-        ref1 = [range(a, -1, options), range(1, z, options)], minus = ref1[0], plus = ref1[1];
-        return minus.concat(plus);
-      } else {
-        return multiplicative(a, z, options.scale);
-      }
     }
   };
 
-  descending_sequence = function(a, z, options) {
+  isDescending = function(a, z, options) {
     if (!options.scale) {
       return a > z;
     } else {
       return a < 0 && z < 0 && Math.abs(a) > Math.abs(z) || a > 0 && z < 0 || a > 0 && z > 0 && a > z;
     }
+  };
+
+  isDoubleEnded = function(a, z, options) {
+    return options.scale && a < 0 && z > 0;
   };
 
   additive = function(lower, upper, step) {

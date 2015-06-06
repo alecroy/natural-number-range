@@ -1,8 +1,22 @@
 # *natural-number-range* 
 
-A module to compute sequences of numbers.
+A module to compute additive & multiplicative sequences of numbers.
 
-It exports a single function of 3 arguments:
+#### Some additive sequences
+
+`1, 2, 3, 4, 5`
+`100, 99, 98, 97, 96, 95`
+`-2, -1, 0, -1, 2`
+
+#### Some multiplicative sequences
+
+`1, 10, 100, 1000`
+`16, 8, 4, 2, 1`
+`-25, -5, -1, 1, 5, 25`
+
+## Exports
+
+This module exports a single function of 3 arguments, all of which are optional:
 
 1.  *a*, the beginning of the range
 1.  *z*, the end of the range (inclusive)
@@ -10,54 +24,41 @@ It exports a single function of 3 arguments:
     a. *step: N*, a step size, for computing additive sequences
     a. *scale: X*, a scaling factor, for computing multiplicative sequences
 
-This function can be called with 0, 1, 2, or 3 arguments. You can require(..) this function and give it any name you want; I will refer to it as __range__ below.
+For function calls of zero, one, or two arguments, additive sequences of step size 1 are computed by default.
 
     module.exports = range = (a, z, options = step: 1) ->
-      if !a then return []
-      if !z then [z, a] = [a, if a < 0 then -1 else 1]
 
 Passing in no arguments always returns an empty sequence, [].
 
-Passing in one argument *a* computes the additive range *1..a* if *a* is positive or *a..-1* if a is negative.
+      if !a then return []
 
-Passing in two arguments *a, z* computes the ascending range *a..z* if *a* < *z*, otherwise it computes the descending range *z..a*.
+Passing in one argument *a* without *z* computes the sequence *1..a* for positive *a* and *-1..a* for negative *a*.
 
-For function calls of 0, 1, or 2 arguments:
+      if !z then [z, a] = [a, if a < 0 then -1 else 1]
 
-- only additive sequences are computed
-- a step size of 1 is used
+Passing in two arguments *a, z* always computes the ascending sequence *a..z*.  To compute a descending sequnce when *z* < *a*, it computes and reverses the ascending sequence *z..a*.
 
-Passing in three arguments provides the most functionality.  Any step size *step: N* can be passed into the *options* hash.  This computes additive sequences of step size *N*.  Instead of passing a step size, pass a scaling factor *scale: X* to compute multiplicative sequences.
-
-#### Additive Sequences
-
-`1, 2, 3, 4, 5`
-`7, 8, 9`
-`-2, -1, 0, -1, 2`
-`100, 99, 98, 97, 96, 95`
-
-#### Multiplicative Sequences
-
-`1, 10, 100, 1000`
-`1, 3, 10, 32, 100, 316, 1000`
-`1, 2, 4, 8, 16`
-`-10, -3, -1, 1, 3, 10`
-
-Passing in both a *step: N* and a *scale: X* ignores the step size and computes the multiplicative sequence with scaling factor *X*.
-
-      if descending_sequence a, z, options
+      if isDescending a, z, options
         return range(z, a, options).reverse()
 
-      if !options.scale
+Passing in three arguments provides the most functionality, allowing you to computer multiplicative sequences.
+
+Like additive sequences, multiplicative sequences can ascend across 0, stopping when they scale below ±1.  This is a double-ended sequence, since the negative side scales down from *-a* to *-1*, then the positive side scales up from *+1* to *+z*.
+
+      if isDoubleEnded a, z, options
+        return range(a, -1, options).concat range(1, z, options)
+
+Passing in a scaling factor *X* will always compute a multiplicative sequence, ignoring any step size.
+
+      if options.scale
+        multiplicative a, z, options.scale
+      else
         if a > z then range(z, a, options).reverse()
         else additive a, z, options.step
-      else
-        if a < 0 and z > 0
-          [minus, plus] = [range(a, -1, options), range(1, z, options)]
-          minus.concat plus
-        else multiplicative a, z, options.scale
 
-    descending_sequence = (a, z, options) ->
+## Helper functions
+
+    isDescending = (a, z, options) ->
       if !options.scale
         a > z
       else
@@ -65,8 +66,8 @@ Passing in both a *step: N* and a *scale: X* ignores the step size and computes 
         a > 0 and z < 0 or
         a > 0 and z > 0 and a > z
 
-
-
+    isDoubleEnded = (a, z, options) ->
+      options.scale and a < 0 and z > 0
 
     additive = (lower, upper, step) ->
       array = []
