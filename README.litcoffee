@@ -24,9 +24,10 @@ This module exports a single function of 3 arguments, all of which are optional:
 
 1.  *a*, the beginning of the range
 1.  *z*, the end of the range (inclusive)
-1.  *options*, an optional hash containing either:
-    a. *step: N*, a step size, for computing additive sequences
-    a. *scale: X*, a scaling factor, for computing multiplicative sequences
+1.  *options*, an optional hash containing:
+
+  - either *step: N*, a step size, for computing additive sequences
+  - or *scale: X*, a scaling factor, for computing multiplicative sequences
 
 For function calls of zero, one, or two arguments, additive sequences of step size 1 are computed by default.
 
