@@ -28,7 +28,7 @@ describe 'range = require(\'natural-number-range\')', ->
       it 'range(-5) = [-1, -2, -3, -4, -5]', ->
         expect(range -5).to.eql [-1, -2, -3, -4, -5]
 
-      it 'range(-5, -1) = []', ->
+      it 'range(-5, -1) = [-5, -4, -3, -2, -1]', ->
         expect(range -5, -1).to.eql [-5, -4, -3, -2, -1]
 
       it 'range(-2, 2) = [-2, -1, 0, 1, 2]', ->
