@@ -55,7 +55,7 @@ Passing in a scaling factor *X* will always compute a multiplicative sequence, i
       if options.scale then multiplicative a, z, options.scale
       else additive a, z, options.step
 
-### Helper functions
+#### Helper functions
 
     isDescending = (a, z, options) ->
       if !options.scale
@@ -86,7 +86,13 @@ Multiplicative sequences terminate when their rounded absolute values exceed the
         lower *= scale
       return array
 
-## Usage
+## Build / Test
 
-To build the module: `npm run build`
-To run the tests: `npm run test`
+To build & test, you will need `coffee-script` and `mocha` to be installed globally (`-g`).
+
+To build the module: `npm run build`.
+To run the tests: `npm run test`.
+
+---
+
+*This file is written in Literate CoffeeScript: all source code is shown above.  The module `index.js` is generated from this file.*
