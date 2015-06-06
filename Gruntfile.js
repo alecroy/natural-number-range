@@ -4,37 +4,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     coffee: {
       index: {
-        files: { 'lib/index.js': 'src/index.litcoffee' },
-      },
-    },
-    jshint: {
-      all: {
-        src: ['./*.js', './test/**/*test.js'],
-        options: {
-          curly: true,
-          eqeqeq: true,
-          expr: true,
-          mocha: true,
-          node: true,
-          strict: true,
-          undef: true,
-          unused: true,
-        },
-      },
-    },
-    jscs: {
-      all: {
-        src: ['./*.js', './lib/*.js'],
-        options: {
-          preset: 'airbnb',
-          disallowMultipleVarDecl: null,
-          disallowTrailingComma: null,
-          maximumLineLength: null,
-          requirePaddingNewLinesAfterBlocks: null,
-          requirePaddingNewLinesBeforeLineComments: null,
-          requireTrailingComma: null,
-          verbose: true,
-        },
+        files: { 'index.js': 'README.litcoffee' },
       },
     },
     simplemocha: {
@@ -43,19 +13,17 @@ module.exports = function(grunt) {
       },
     },
     watch: {
-      files: ['./*', './src/**/*', './test/**/*'],
+      files: ['./*', './test/**/*'],
       tasks: ['coffee', 'lint', 'test'],
     },
   });
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-simple-mocha');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-jscs');
   grunt.loadNpmTasks('grunt-contrib-coffee');
 
   grunt.registerTask('test', 'simplemocha');
-  grunt.registerTask('lint', ['jshint', 'jscs']);
+  grunt.registerTask('lint', []);
 
   grunt.registerTask('default', ['coffee', 'lint', 'test']);
 };
