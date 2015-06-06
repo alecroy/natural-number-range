@@ -103,3 +103,15 @@ describe 'range = require(\'natural-number-range\')', ->
 
     it 'range(10, 1, {scale: sqrt(10)}) = [10, 3, 1]', ->
       expect(range 10, 1, scale: sqrt 10).to.eql [10, 3, 1]
+
+  describe 'it handles bad input', ->
+    it 'turns negative step sizes into positive ones', ->
+      expect(range -5, 5, step: -1).to.eql range -5, 5
+    it 'turns negative scaling factors into positive ones', ->
+      expect(range -5, 5, scale: -5).to.eql range -5, 5, scale: 5
+    it 'turns scaling factors < 1 into factors > 1', ->
+      expect(range -5, 5, scale: 1/5).to.eql range -5, 5, scale: 5
+    it 'returns [] given a step size of 0', ->
+      expect(range 1, 10, step: 0).to.eql []
+    it 'returns [] given a scaling factor of 1', ->
+      expect(range -5, 5, scale: 1).to.eql []

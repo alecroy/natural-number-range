@@ -18,6 +18,19 @@
     if (isDescending(a, z, options)) {
       return range(z, a, options).reverse();
     }
+    if (options.scale) {
+      options.scale = Math.abs(options.scale);
+      if (options.scale < 1) {
+        options.scale = 1 / options.scale;
+      } else if (options.scale === 1) {
+        return [];
+      }
+    } else {
+      if (options.step === 0) {
+        return [];
+      }
+      options.step = Math.abs(options.step);
+    }
     if (isDoubleEnded(a, z, options)) {
       return range(a, -1, options).concat(range(1, z, options));
     }

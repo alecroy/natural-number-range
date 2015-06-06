@@ -45,7 +45,24 @@ Passing in two arguments *a, z* always computes the ascending sequence *a..z*.  
       if isDescending a, z, options
         return range(z, a, options).reverse()
 
-Passing in three arguments allows you to compute multiplicative sequences.  Like additive sequences, they can ascend across 0, stopping when each side scales below ±1.  These double-ended sequences are formed by combining a descending sequence (*-1* down to *a*) with an ascending sequence (*+1* up to *z*).
+Passing in three arguments allows you to compute multiplicative sequences.  Ascending/descending order is determined by the order of the arguments, *not* by a negative step size or <1 scaling factor.  To avoid bad input:
+
+- all steps are normalized to positive numbers
+- all scaling factors are normalized to positive numbers greater than 1
+
+
+      if options.scale
+        options.scale = Math.abs options.scale
+        if options.scale < 1
+          options.scale = 1 / options.scale
+        else if options.scale == 1
+          return []
+      else
+        if options.step == 0
+          return []
+        options.step = Math.abs options.step
+
+Like additive sequences, multiplicative sequences can ascend across 0, but they do it differently.  These double-ended sequences are formed by combining a descending sequence (*-1* down to *a*) with an ascending sequence (*+1* up to *z*).
 
       if isDoubleEnded a, z, options
         return range(a, -1, options).concat range(1, z, options)
